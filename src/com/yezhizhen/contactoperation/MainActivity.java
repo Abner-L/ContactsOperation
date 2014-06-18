@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,7 +28,6 @@ import android.provider.ContactsContract.RawContacts;
 public class MainActivity extends ActionBarActivity implements OnClickListener {
 
 	private EditText nameEditText;
-	private EditText idEditText;
 	private EditText nicknameEditText;
 	private EditText phoneEditText;
 	private EditText emailEditText;
@@ -40,7 +41,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		saveContact();
 
 	}
@@ -48,7 +49,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 	// 保存联系人的方法
 	public void saveContact() {
 		nameEditText = (EditText) findViewById(R.id.et_name);
-		idEditText = (EditText) findViewById(R.id.et_contactid);
 		nicknameEditText = (EditText) findViewById(R.id.et_nickname);
 		phoneEditText = (EditText) findViewById(R.id.et_phone);
 		emailEditText = (EditText) findViewById(R.id.et_email);
@@ -75,80 +75,91 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		case R.id.btn_save:
 			// 保存联系人
 			ContentValues values = new ContentValues();
-		Uri rawContactUri = getContentResolver().insert(RawContacts.CONTENT_URI, values);
-		long rawContactID = ContentUris.parseId(rawContactUri);
-		values.clear();
-			//1.保存联系人的姓名  ok
+			Uri rawContactUri = getContentResolver().insert(
+					RawContacts.CONTENT_URI, values);
+			long rawContactID = ContentUris.parseId(rawContactUri);
+			values.clear();
+			// 1.保存联系人的姓名 ok
 			String name = nameEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
-			values.put(Data.MIMETYPE,StructuredName.CONTENT_ITEM_TYPE);
+			values.put(Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE);
 			values.put(StructuredName.GIVEN_NAME, name);
-			getContentResolver().insert(android.provider.ContactsContract.Data.CONTENT_URI, values);
+			getContentResolver().insert(
+					android.provider.ContactsContract.Data.CONTENT_URI, values);
 			values.clear();
-			//2.保存联系人的 id
-			String id = idEditText.getText().toString().trim();
-			values.put(Data.RAW_CONTACT_ID, rawContactID);
-			values.put(Data.MIMETYPE, "vnd.android.cursor.item/identify");
-			values.put(Data.DATA1, id);
-			getContentResolver().insert(android.provider.ContactsContract.Data.CONTENT_URI, values);
-			values.clear();
-			//3.保存联系人的昵称  ok
-			String nickname  = nicknameEditText.getText().toString().trim();
+			// 2.保存联系人的 id 将联系人的contact_id存储到数据库
+			IdSaveDbHelper idSaveDbHelper = new IdSaveDbHelper(this,
+					"contacts_id.db", null, 1);
+			idSaveDbHelper.getWritableDatabase().execSQL("insert into contacts_id values(null , ?)", new Object[]{rawContactID});
+			idSaveDbHelper.close();
+			// 3.保存联系人的昵称 ok
+			String nickname = nicknameEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
 			values.put(Data.MIMETYPE, "vnd.android.cursor.item/nickname");
 			values.put(Data.DATA1, nickname);
-			getContentResolver().insert(android.provider.ContactsContract.Data.CONTENT_URI, values);
+			getContentResolver().insert(
+					android.provider.ContactsContract.Data.CONTENT_URI, values);
 			values.clear();
-			//4.保存联系人的电话 ok
+			// 4.保存联系人的电话 ok
 			String phone = phoneEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
 			values.put(Data.MIMETYPE, "vnd.android.cursor.item/phone_v2");
 			values.put(Data.DATA1, phone);
-			getContentResolver().insert(android.provider.ContactsContract.Data.CONTENT_URI, values);
+			getContentResolver().insert(
+					android.provider.ContactsContract.Data.CONTENT_URI, values);
 			values.clear();
-			//5.保存联系人的email ok
+			// 5.保存联系人的email ok
 			String email = emailEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
 			values.put(Data.MIMETYPE, "vnd.android.cursor.item/email_v2");
 			values.put(Data.DATA1, email);
-			getContentResolver().insert(android.provider.ContactsContract.Data.CONTENT_URI, values);
+			getContentResolver().insert(
+					android.provider.ContactsContract.Data.CONTENT_URI, values);
 			values.clear();
-			//6.保存联系人的网址 ok
+			// 6.保存联系人的网址 ok
 			String website = websiteEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
 			values.put(Data.MIMETYPE, "vnd.android.cursor.item/website");
 			values.put(Data.DATA1, website);
-			getContentResolver().insert(android.provider.ContactsContract.Data.CONTENT_URI, values);
+			getContentResolver().insert(
+					android.provider.ContactsContract.Data.CONTENT_URI, values);
 			values.clear();
-			//7.保存联系人的地址  ok
+			// 7.保存联系人的地址 ok
 			String adress = adressEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
-			values.put(Data.MIMETYPE, "vnd.android.cursor.item/postal-address_v2");
+			values.put(Data.MIMETYPE,
+					"vnd.android.cursor.item/postal-address_v2");
 			values.put(Data.DATA1, adress);
-			getContentResolver().insert(android.provider.ContactsContract.Data.CONTENT_URI, values);
+			getContentResolver().insert(
+					android.provider.ContactsContract.Data.CONTENT_URI, values);
 			values.clear();
-			//8.保存联系人的组织信息 ok
+			// 8.保存联系人的组织信息 ok
 			String orginfo = orginfoEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
 			values.put(Data.MIMETYPE, "vnd.android.cursor.item/organization");
 			values.put(Data.DATA1, orginfo);
-			getContentResolver().insert(android.provider.ContactsContract.Data.CONTENT_URI, values);
+			getContentResolver().insert(
+					android.provider.ContactsContract.Data.CONTENT_URI, values);
 			values.clear();
-			//9.保存联系人的event
+			// 9.保存联系人的event
 			String event = eventEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
-			values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE);
+			values.put(Data.MIMETYPE,
+					ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE);
 			values.put(Data.DATA1, event);
-			getContentResolver().insert(android.provider.ContactsContract.Data.CONTENT_URI, values);
+			getContentResolver().insert(
+					android.provider.ContactsContract.Data.CONTENT_URI, values);
 			values.clear();
-			//10.保存联系人的即时信息
+			// 10.保存联系人的即时信息
 			String timelyinfo = timelyinfoEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
-			values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE);
+			values.put(Data.MIMETYPE,
+					ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE);
 			values.put(Data.DATA1, timelyinfo);
-			getContentResolver().insert(android.provider.ContactsContract.Data.CONTENT_URI, values);
+			getContentResolver().insert(
+					android.provider.ContactsContract.Data.CONTENT_URI, values);
 			values.clear();
-		Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.btn_delete:
 			// 删除联系人
