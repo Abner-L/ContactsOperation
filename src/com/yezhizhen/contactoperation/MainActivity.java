@@ -1,38 +1,22 @@
 package com.yezhizhen.contactoperation;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.Random;
 
-<<<<<<< HEAD
-import com.yezhizhen.contactoperation.R.drawable;
-
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-=======
-import android.content.ContentUris;
-import android.content.ContentValues;
->>>>>>> 320fee962baf1db31b27e50cfd3406be43302c42
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.CommonDataKinds.Photo;
 import android.provider.ContactsContract.CommonDataKinds.StructuredName;
 import android.provider.ContactsContract.Contacts.Data;
 import android.provider.ContactsContract.RawContacts;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -52,6 +36,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 	private EditText eventEditText;
 	private EditText timelyinfoEditText;
 	private ImageView photoImageView;
+	Bitmap  avatarBM;
 	long rawContactID;
 	ContentValues values;
 
@@ -182,6 +167,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 					android.provider.ContactsContract.Data.CONTENT_URI, values);
 			values.clear();
 			Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
+			updateAvatar(rawContactID);
+			
 			break;
 		case R.id.btn_delete:
 			// 删除联系人
@@ -190,9 +177,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			// 设置头像
 			Random photoName = new Random();
 			int i =	photoName.nextInt(10);
-			photoImageView.setBackgroundResource(R.drawable.photo1+i);
-
-			Bitmap	photoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.photo1+i);
+			avatarBM = BitmapFactory.decodeResource(getResources(), R.drawable.photo1+i);
 //			File photoFile = new File(getApplication().getFilesDir(), "photo.png");
 //			try {
 //				OutputStream photoOuputStream = new FileOutputStream(photoFile);
@@ -204,12 +189,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 //			} catch (FileNotFoundException e) {
 //				e.printStackTrace();
 //			}
-			values.put(Data.RAW_CONTACT_ID, rawContactID);
-			values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE);
-			values.put(Data.DATA1, photoBitmap.toString().getBytes());
-			
-			values.clear();
-			Toast.makeText(this, "头像设置成功", Toast.LENGTH_SHORT).show();
+			photoImageView.setImageBitmap(avatarBM);
+
 			break;
 		default:
 			break;
@@ -217,4 +198,17 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
 	}
 
+	public void updateAvatar(long contactID){
+		final ByteArrayOutputStream os = new ByteArrayOutputStream();
+		avatarBM.compress(Bitmap.CompressFormat.PNG, 100, os); 
+		byte[] avatar =os.toByteArray(); 
+		Log.e("aa", rawContactID+"");
+		values.put(Data.RAW_CONTACT_ID, rawContactID);
+		values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE);
+		values.put(Photo.PHOTO, avatar);
+		
+		getContentResolver().insert(android.provider.ContactsContract.Data.CONTENT_URI, values);
+		values.clear();
+		Toast.makeText(this, "头像设置成功", Toast.LENGTH_SHORT).show();
+	}
 }
