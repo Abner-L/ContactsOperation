@@ -2,30 +2,22 @@ package com.yezhizhen.contactoperation;
 
 import java.util.Random;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.CommonDataKinds.StructuredName;
+import android.provider.ContactsContract.Contacts.Data;
+import android.provider.ContactsContract.RawContacts;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.os.Build;
-import android.provider.ContactsContract;
-import android.provider.ContactsContract.CommonDataKinds.StructuredName;
-import android.provider.ContactsContract.Contacts.Data;
-import android.provider.ContactsContract.RawContacts;
 
 public class MainActivity extends ActionBarActivity implements OnClickListener {
 
@@ -106,8 +98,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			// 4.保存联系人的电话 ok
 			String phone = phoneEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
-			values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-			values.put(Data.DATA1, phone);
+			values.put(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE);
+			values.put(Phone.NUMBER, phone);
+			values.put(Phone.TYPE, Phone.TYPE_MOBILE);
 			getContentResolver().insert(
 					android.provider.ContactsContract.Data.CONTENT_URI, values);
 			values.clear();
