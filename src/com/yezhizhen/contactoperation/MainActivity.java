@@ -1,5 +1,7 @@
 package com.yezhizhen.contactoperation;
 
+import java.util.Random;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -36,6 +38,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 	private EditText orginfoEditText;
 	private EditText eventEditText;
 	private EditText timelyinfoEditText;
+	private ImageView photoImageView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		eventEditText = (EditText) findViewById(R.id.et_event);
 		timelyinfoEditText = (EditText) findViewById(R.id.et_timelyinfo);
 
-		ImageView photoImageView = (ImageView) findViewById(R.id.iv_photo);
+		photoImageView = (ImageView) findViewById(R.id.iv_photo);
 		Button setPhotoButton = (Button) findViewById(R.id.btn_set_photo);
 		Button deleteButton = (Button) findViewById(R.id.btn_delete);
 		Button saveButton = (Button) findViewById(R.id.btn_save);
@@ -95,7 +98,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			// 3.保存联系人的昵称 ok
 			String nickname = nicknameEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
-			values.put(Data.MIMETYPE, "vnd.android.cursor.item/nickname");
+			values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Nickname.CONTENT_ITEM_TYPE);
 			values.put(Data.DATA1, nickname);
 			getContentResolver().insert(
 					android.provider.ContactsContract.Data.CONTENT_URI, values);
@@ -103,7 +106,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			// 4.保存联系人的电话 ok
 			String phone = phoneEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
-			values.put(Data.MIMETYPE, "vnd.android.cursor.item/phone_v2");
+			values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
 			values.put(Data.DATA1, phone);
 			getContentResolver().insert(
 					android.provider.ContactsContract.Data.CONTENT_URI, values);
@@ -111,7 +114,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			// 5.保存联系人的email ok
 			String email = emailEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
-			values.put(Data.MIMETYPE, "vnd.android.cursor.item/email_v2");
+			values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE);
 			values.put(Data.DATA1, email);
 			getContentResolver().insert(
 					android.provider.ContactsContract.Data.CONTENT_URI, values);
@@ -119,7 +122,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			// 6.保存联系人的网址 ok
 			String website = websiteEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
-			values.put(Data.MIMETYPE, "vnd.android.cursor.item/website");
+			values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Website.CONTENT_ITEM_TYPE);
 			values.put(Data.DATA1, website);
 			getContentResolver().insert(
 					android.provider.ContactsContract.Data.CONTENT_URI, values);
@@ -136,7 +139,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			// 8.保存联系人的组织信息 ok
 			String orginfo = orginfoEditText.getText().toString().trim();
 			values.put(Data.RAW_CONTACT_ID, rawContactID);
-			values.put(Data.MIMETYPE, "vnd.android.cursor.item/organization");
+			values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE);
 			values.put(Data.DATA1, orginfo);
 			getContentResolver().insert(
 					android.provider.ContactsContract.Data.CONTENT_URI, values);
@@ -166,7 +169,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			break;
 		case R.id.btn_set_photo:
 			// 设置头像
-
+			Random photoName = new Random();
+			int i =	photoName.nextInt(10);
+			photoImageView.setBackgroundResource(R.drawable.photo1+i);
+			
 			break;
 		default:
 			break;
