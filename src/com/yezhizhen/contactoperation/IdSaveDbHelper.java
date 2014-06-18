@@ -1,18 +1,21 @@
 package com.yezhizhen.contactoperation;
 
+import android.R.anim;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class IdSaveDbHelper extends SQLiteOpenHelper {
-
-	public IdSaveDbHelper(Context context, String name, CursorFactory factory,
+	
+	
+	private IdSaveDbHelper(Context context, String name, CursorFactory factory,
 			int version) {
 		super(context, name, factory, version);
 		
 	}
 
+	private  static IdSaveDbHelper idSaveDbHelper = null;
 	@Override
 	public void onCreate(SQLiteDatabase sb) {
 		sb.execSQL("create table contacts_id (_id integer primary key autoincrement not null , contact_id integer(20))");
@@ -21,6 +24,17 @@ public class IdSaveDbHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase sb, int arg1, int arg2) {
+		
+	}
+	//定义一个提供获取实例的方法
+	public static  IdSaveDbHelper getHelper (Context context ){
+		return idSaveDbHelper == null ? new IdSaveDbHelper(context, "contacts_id", null, 1):idSaveDbHelper;
+	}
+	//定义一个方法  保存联系人的contact_id
+	public void saveContactId (long rawContactID,IdSaveDbHelper idSaveDbHelper){
+		 
+		idSaveDbHelper.getWritableDatabase().execSQL("insert into contacts_id values(null , ?)", new Object[]{rawContactID});
+		idSaveDbHelper.close();
 		
 	}
 
