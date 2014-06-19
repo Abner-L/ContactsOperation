@@ -202,7 +202,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		final ByteArrayOutputStream os = new ByteArrayOutputStream();
 		avatarBM.compress(Bitmap.CompressFormat.PNG, 100, os); 
 		byte[] avatar =os.toByteArray(); 
-		Log.e("aa", rawContactID+"");
 		values.put(Data.RAW_CONTACT_ID, rawContactID);
 		values.put(Data.MIMETYPE, ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE);
 		values.put(Photo.PHOTO, avatar);
