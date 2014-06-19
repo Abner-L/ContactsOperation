@@ -25,7 +25,9 @@ public class IdSaveDbHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase sb, int arg1, int arg2) {
 
 	}
-
+	public static IdSaveDbHelper getDbHelper(){
+		return idSaveDbHelper;
+	}
 	// 定义一个提供获取实例的方法
 	public static IdSaveDbHelper getHelper(Context context) {
 		idSaveDbHelper = idSaveDbHelper == null ? new IdSaveDbHelper(context,

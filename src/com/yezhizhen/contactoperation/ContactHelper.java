@@ -20,9 +20,13 @@ import android.util.Log;
 public class ContactHelper {
 	long rawContactID;
 	ContentValues	values ;
+	IdSaveDbHelper idSaveDbHelper;
+	
+	
 	//定义一个方法 保存联系人信息
-			public void saveContactInfo (IdSaveDbHelper idSaveDbHelper , ContentResolver contentResolver , String[] info){
+			public void saveContactInfo ( ContentResolver contentResolver , String[] info){
 				
+				idSaveDbHelper = IdSaveDbHelper.getDbHelper();
 				values = new ContentValues();
 				Uri rawContactUri = contentResolver.insert(RawContacts.CONTENT_URI,	values);
 				rawContactID = ContentUris.parseId(rawContactUri);
@@ -102,7 +106,7 @@ public class ContactHelper {
 			
 			
 			//读取数据库中联系人的id
-			public void readContactId(IdSaveDbHelper idSaveDbHelper){
+			public void readContactId(){
 				Cursor idCursor = idSaveDbHelper.getReadableDatabase().rawQuery("select * from contacts_id where contact_id > 0", null);
 				int i = 0;
 				StringBuilder sb = new StringBuilder();

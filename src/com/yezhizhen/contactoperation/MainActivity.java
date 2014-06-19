@@ -78,14 +78,14 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			String[] info = new String[] { name, nickname, phone, email,website, adress, orginfo, event, timelyinfo };
 					
 			contactHelper = new ContactHelper();
-			contactHelper.saveContactInfo(idSaveDbHelper, getContentResolver(),info);
+			contactHelper.saveContactInfo( getContentResolver(),info);
 			contactHelper.updateAvatar(getContentResolver(), avatarBM);
 
 			Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.btn_delete:
 			// 删除联系人
-			contactHelper.readContactId(idSaveDbHelper);
+			contactHelper.readContactId();
 			break;
 		case R.id.btn_set_photo:
 			// 设置头像
