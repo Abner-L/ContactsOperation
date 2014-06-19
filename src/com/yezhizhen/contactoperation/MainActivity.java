@@ -1,6 +1,5 @@
 package com.yezhizhen.contactoperation;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Random;
 
 import android.content.ContentUris;
@@ -9,13 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.provider.ContactsContract.CommonDataKinds.Photo;
-import android.provider.ContactsContract.CommonDataKinds.StructuredName;
-import android.provider.ContactsContract.Contacts.Data;
 import android.provider.ContactsContract.RawContacts;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,7 +29,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 	private EditText eventEditText;
 	private EditText timelyinfoEditText;
 	private ImageView photoImageView;
-	Bitmap  avatarBM;
+	Bitmap avatarBM;
 	long rawContactID;
 	ContentValues values;
 	private IdSaveDbHelper idSaveDbHelper;
@@ -49,26 +43,18 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
 	}
 
-	//操作联系人的方法
-		public void operateContact() {
-			nameEditText = (EditText) findViewById(R.id.et_name);
-			nicknameEditText = (EditText) findViewById(R.id.et_nickname);
-			phoneEditText = (EditText) findViewById(R.id.et_phone);
-			emailEditText = (EditText) findViewById(R.id.et_email);
-			websiteEditText = (EditText) findViewById(R.id.et_website);
-			adressEditText = (EditText) findViewById(R.id.et_adress);
-			orginfoEditText = (EditText) findViewById(R.id.et_orginfo);
-			eventEditText = (EditText) findViewById(R.id.et_event);
-			timelyinfoEditText = (EditText) findViewById(R.id.et_timelyinfo);
+	// 操作联系人的方法
+	public void operateContact() {
+		nameEditText = (EditText) findViewById(R.id.et_name);
+		nicknameEditText = (EditText) findViewById(R.id.et_nickname);
+		phoneEditText = (EditText) findViewById(R.id.et_phone);
+		emailEditText = (EditText) findViewById(R.id.et_email);
+		websiteEditText = (EditText) findViewById(R.id.et_website);
+		adressEditText = (EditText) findViewById(R.id.et_adress);
+		orginfoEditText = (EditText) findViewById(R.id.et_orginfo);
+		eventEditText = (EditText) findViewById(R.id.et_event);
+		timelyinfoEditText = (EditText) findViewById(R.id.et_timelyinfo);
 
-			photoImageView = (ImageView) findViewById(R.id.iv_photo);
-			Button setPhotoButton = (Button) findViewById(R.id.btn_set_photo);
-			Button deleteButton = (Button) findViewById(R.id.btn_delete);
-			Button saveButton = (Button) findViewById(R.id.btn_save);
-
-			saveButton.setOnClickListener(this);
-			deleteButton.setOnClickListener(this);
-			setPhotoButton.setOnClickListener(this);
 
 			idSaveDbHelper = IdSaveDbHelper.getHelper(MainActivity.this);
 		}
@@ -117,8 +103,5 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			default:
 				break;
 			}
-
-		}
-
-		
 	}
+}
