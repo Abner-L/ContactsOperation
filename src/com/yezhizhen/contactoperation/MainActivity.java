@@ -26,7 +26,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 	private EditText timelyinfoEditText;
 	private ImageView photoImageView;
 	private Bitmap avatarBM;
-	private IdSaveDbHelper idSaveDbHelper;
 	private ContactHelper contactHelper;
 
 	@Override
@@ -57,7 +56,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		deleteButton.setOnClickListener(this);
 		setPhotoButton.setOnClickListener(this);
 
-		idSaveDbHelper = IdSaveDbHelper.getHelper(MainActivity.this);
 	}
 
 	@Override
@@ -77,15 +75,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			String timelyinfo = timelyinfoEditText.getText().toString().trim();
 			String[] info = new String[] { name, nickname, phone, email,website, adress, orginfo, event, timelyinfo };
 					
-			contactHelper = new ContactHelper();
-			contactHelper.saveContactInfo( getContentResolver(),info);
-			contactHelper.updateAvatar(getContentResolver(), avatarBM);
+			contactHelper = new ContactHelper(this);
+			contactHelper.saveContactInfo(info);
+			contactHelper.updateAvatar(avatarBM);
 
 			Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.btn_delete:
 			// 删除联系人
-			contactHelper.readContactId();
+			contactHelper.readContactId(this);
 			break;
 		case R.id.btn_set_photo:
 			// 设置头像
