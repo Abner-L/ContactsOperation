@@ -38,6 +38,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 	Bitmap  avatarBM;
 	long rawContactID;
 	ContentValues values;
+	private IdSaveDbHelper idSaveDbHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			deleteButton.setOnClickListener(this);
 			setPhotoButton.setOnClickListener(this);
 
+			idSaveDbHelper = IdSaveDbHelper.getHelper(MainActivity.this);
 		}
 
 		@Override
@@ -84,7 +86,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 				values.clear();
 				
 				// 2.保存联系人的 id 将联系人的contact_id存储到数据库
-				IdSaveDbHelper idSaveDbHelper = IdSaveDbHelper.getHelper(MainActivity.this);
 				idSaveDbHelper.saveContactId(rawContactID, idSaveDbHelper);
 				
 				String name = nameEditText.getText().toString().trim();
@@ -104,6 +105,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 				break;
 			case R.id.btn_delete:
 				// 删除联系人
+				idSaveDbHelper.readContactId(idSaveDbHelper);
 				break;
 			case R.id.btn_set_photo:
 				// 设置头像

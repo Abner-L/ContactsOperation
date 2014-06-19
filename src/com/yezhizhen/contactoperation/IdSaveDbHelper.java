@@ -3,10 +3,12 @@ package com.yezhizhen.contactoperation;
 import java.io.ByteArrayOutputStream;
 
 import android.R.anim;
+import android.R.integer;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -134,6 +136,19 @@ public class IdSaveDbHelper extends SQLiteOpenHelper {
 			values.put(Photo.PHOTO, avatar);
 			contentResolver.insert(android.provider.ContactsContract.Data.CONTENT_URI, values);
 			values.clear();
+		}
+		
+		//读取数据库中联系人的id
+		public void readContactId(IdSaveDbHelper idSaveDbHelper){
+			Cursor idCursor = idSaveDbHelper.getReadableDatabase().rawQuery("select * from contacts_id where contact_id > 0", null);
+			int i = 0;
+			StringBuilder sb = new StringBuilder();
+			while(idCursor.moveToNext()){
+			String id = idCursor.getString(idCursor.getColumnIndex("contact_id"));
+			sb.append(id + "---");
+			}
+			String msg = sb.toString();
+			Log.e("contactsid", msg);
 		}
 
 	}
