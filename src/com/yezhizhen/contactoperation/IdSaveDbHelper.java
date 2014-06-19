@@ -2,10 +2,7 @@ package com.yezhizhen.contactoperation;
 
 import java.io.ByteArrayOutputStream;
 
-import android.R.anim;
-import android.R.integer;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,20 +10,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.provider.ContactsContract;
-import android.provider.ContactsContract.RawContacts;
 import android.provider.ContactsContract.CommonDataKinds.Photo;
 import android.provider.ContactsContract.CommonDataKinds.StructuredName;
 import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
-import android.widget.Toast;
 
 public class IdSaveDbHelper extends SQLiteOpenHelper {
-	Bitmap avatarBM;
-	long rawContactID;
-	ContentValues values;
-
+	
 	private IdSaveDbHelper(Context context, String name, CursorFactory factory,
 			int version) {
 		super(context, name, factory, version);

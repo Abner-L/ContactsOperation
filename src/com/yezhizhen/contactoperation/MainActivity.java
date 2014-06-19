@@ -39,6 +39,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+
 		operateContact();
 
 	}
@@ -55,6 +56,14 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		eventEditText = (EditText) findViewById(R.id.et_event);
 		timelyinfoEditText = (EditText) findViewById(R.id.et_timelyinfo);
 
+		photoImageView = (ImageView) findViewById(R.id.iv_photo);
+		Button setPhotoButton = (Button) findViewById(R.id.btn_set_photo);
+		Button deleteButton = (Button) findViewById(R.id.btn_delete);
+		Button saveButton = (Button) findViewById(R.id.btn_save);
+		
+		saveButton.setOnClickListener(this);
+		deleteButton.setOnClickListener(this);
+		setPhotoButton.setOnClickListener(this);
 
 			idSaveDbHelper = IdSaveDbHelper.getHelper(MainActivity.this);
 		}
