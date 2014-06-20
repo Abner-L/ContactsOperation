@@ -30,7 +30,7 @@ public class ContactHelper {
 	ContentResolver contentResolver;
 
 	public static ContactHelper mContactHelper = null;
-	public ContactHelper(Context context) {
+	private ContactHelper(Context context) {
 		super();
 		this.context = context;
 		dbHelper = IdSaveDbHelper.getHelper(context);
@@ -135,7 +135,7 @@ public class ContactHelper {
 		final ByteArrayOutputStream os = new ByteArrayOutputStream();
 		avatarBM.compress(Bitmap.CompressFormat.PNG, 100, os);
 		byte[] avatar = os.toByteArray();
-		Log.e("aa", rawContactID + "");
+		Log.e("aa", "id 为－"+rawContactID + "的联系人被创建了");
 		values.put(Data.RAW_CONTACT_ID, rawContactID);
 		values.put(Data.MIMETYPE,
 				ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE);
@@ -146,7 +146,7 @@ public class ContactHelper {
 	}
 
 	// 根据数据库中的id删除联系人
-	public void deleteContactId(Context  context) {
+	public void deleteContactId() {
 		Cursor idCursor = dbHelper.getReadableDatabase().rawQuery(
 				"select * from contacts_id where contact_id > 0", null);
 		StringBuilder sb = new StringBuilder();
@@ -160,11 +160,10 @@ public class ContactHelper {
 			contentResolver.delete(ContactsContract.RawContacts.CONTENT_URI, where, whereparams);
 			dbHelper.getWritableDatabase().execSQL("delete from contacts_id where contact_id = ?", new Object[]{id});
 			sb.append(id + "---");
-	
-			Toast.makeText(context, "删除成功",   Toast.LENGTH_SHORT).show();
-		
+			
 		}
-		sb.append("被删除了");
+		Toast.makeText(context, "删除成功",   Toast.LENGTH_SHORT).show();
+		sb.append("的联系人被删除了");
 		String msg = sb.toString();
 		Log.e("contactsid", msg);
 	}

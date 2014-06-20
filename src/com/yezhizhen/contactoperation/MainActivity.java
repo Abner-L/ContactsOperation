@@ -56,7 +56,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		deleteButton.setOnClickListener(this);
 		setPhotoButton.setOnClickListener(this);
 		
-		contactHelper = new ContactHelper(this);
+		contactHelper = ContactHelper.getContactHelper(this);
 		avatarBM = BitmapFactory.decodeResource(getResources(),
 				R.drawable.photo);
 	}
@@ -81,7 +81,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			
 			contactHelper.saveContactInfo(info);
 			contactHelper.updateAvatar(avatarBM);
-
+			
 			nameEditText.setText("");
 			nicknameEditText.setText("");
 			phoneEditText.setText("");
@@ -99,7 +99,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			break;
 		case R.id.btn_delete:
 			// 删除联系人
-			contactHelper.deleteContactId(this);
+			contactHelper.deleteContactId();
 			break;
 		case R.id.btn_set_photo:
 			// 设置头像
@@ -108,6 +108,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			avatarBM = BitmapFactory.decodeResource(getResources(),
 					R.drawable.photo1 + i);
 			photoImageView.setImageBitmap(avatarBM);
+			
+
 			break;
 		default:
 			break;
