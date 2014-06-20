@@ -55,7 +55,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		saveButton.setOnClickListener(this);
 		deleteButton.setOnClickListener(this);
 		setPhotoButton.setOnClickListener(this);
-
+		
+		contactHelper = new ContactHelper(this);
+		avatarBM = BitmapFactory.decodeResource(getResources(),
+				R.drawable.photo);
 	}
 
 	@Override
@@ -75,15 +78,28 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			String timelyinfo = timelyinfoEditText.getText().toString().trim();
 			String[] info = new String[] { name, nickname, phone, email,website, adress, orginfo, event, timelyinfo };
 					
-			contactHelper = new ContactHelper(this);
+			
 			contactHelper.saveContactInfo(info);
 			contactHelper.updateAvatar(avatarBM);
 
+			nameEditText.setText("");
+			nicknameEditText.setText("");
+			phoneEditText.setText("");
+			emailEditText.setText("");
+			websiteEditText.setText("");
+			adressEditText.setText("");
+			orginfoEditText.setText("");
+			eventEditText.setText("");
+			timelyinfoEditText.setText("");
+			
+			avatarBM = BitmapFactory.decodeResource(getResources(),
+					R.drawable.photo);
+			photoImageView.setImageBitmap(avatarBM);
 			Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.btn_delete:
 			// 删除联系人
-			contactHelper.readContactId(this);
+			contactHelper.deleteContactId(this);
 			break;
 		case R.id.btn_set_photo:
 			// 设置头像

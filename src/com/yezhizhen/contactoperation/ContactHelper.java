@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +20,7 @@ import android.provider.ContactsContract.CommonDataKinds.Photo;
 import android.provider.ContactsContract.CommonDataKinds.StructuredName;
 import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
+import android.widget.Toast;
 
 public class ContactHelper {
 	long rawContactID;
@@ -143,22 +145,26 @@ public class ContactHelper {
 		values.clear();
 	}
 
-	// 读取数据库中联系人的id
-	public void readContactId(Context  context) {
-		//Cursor allCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+	// 根据数据库中的id删除联系人
+	public void deleteContactId(Context  context) {
 		Cursor idCursor = dbHelper.getReadableDatabase().rawQuery(
 				"select * from contacts_id where contact_id > 0", null);
-		int i = 0;
 		StringBuilder sb = new StringBuilder();
+		sb.append("id 为---");
+		
 		while (idCursor.moveToNext()) {
 			String id = idCursor.getString(idCursor.getColumnIndex("contact_id"));
 	
-				String where = ContactsContract.Data._ID + " =?";
-				String[] whereparams = new String[]{id};
+			String where = ContactsContract.Data._ID + " =?";
+			String[] whereparams = new String[]{id};
 			contentResolver.delete(ContactsContract.RawContacts.CONTENT_URI, where, whereparams);
-
+			dbHelper.getWritableDatabase().execSQL("delete from contacts_id where contact_id = ?", new Object[]{id});
 			sb.append(id + "---");
+	
+			Toast.makeText(context, "删除成功",   Toast.LENGTH_SHORT).show();
+		
 		}
+		sb.append("被删除了");
 		String msg = sb.toString();
 		Log.e("contactsid", msg);
 	}
