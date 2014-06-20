@@ -66,6 +66,19 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
 		switch (view.getId()) {
 		case R.id.btn_save:
+			//随机向editText中添加数据
+			 FieldResources fieldResources =	new FieldResources();
+			 Random random = new Random();
+			
+			 nameEditText.setText(fieldResources.name[random.nextInt(10)]);
+			 nicknameEditText.setText(fieldResources.nickname[random.nextInt(10)]);
+			 phoneEditText.setText(fieldResources.phone[random.nextInt(10)]);
+			 emailEditText.setText(fieldResources.email[random.nextInt(10)]);
+			 websiteEditText.setText(fieldResources.website[random.nextInt(10)]);
+			 adressEditText.setText(fieldResources.address[random.nextInt(10)]);
+			 orginfoEditText.setText(fieldResources.org[random.nextInt(10)]);
+			 eventEditText.setText(fieldResources.event[random.nextInt(10)]);
+			 timelyinfoEditText.setText(fieldResources.im[random.nextInt(10)]);
 			// 保存联系人
 			String name = nameEditText.getText().toString().trim();
 			String nickname = nicknameEditText.getText().toString().trim();

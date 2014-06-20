@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.RawContacts;
 import android.provider.ContactsContract.CommonDataKinds.Photo;
 import android.provider.ContactsContract.CommonDataKinds.StructuredName;
@@ -68,10 +69,18 @@ public class ContactHelper {
 				android.provider.ContactsContract.Data.CONTENT_URI, values);
 		values.clear();
 		// 4.保存联系人的电话 ok
+//		values.put(Data.RAW_CONTACT_ID, rawContactID);
+//		values.put(Data.MIMETYPE,
+//				ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+//		values.put(Data.DATA1, info[2]);
+//		contentResolver.insert(
+//				android.provider.ContactsContract.Data.CONTENT_URI, values);
+//		values.clear();
 		values.put(Data.RAW_CONTACT_ID, rawContactID);
 		values.put(Data.MIMETYPE,
 				ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-		values.put(Data.DATA1, info[2]);
+		values.put(Phone.NUMBER, info[2]);
+		values.put(Phone.TYPE, Phone.TYPE_MOBILE);
 		contentResolver.insert(
 				android.provider.ContactsContract.Data.CONTENT_URI, values);
 		values.clear();
@@ -167,5 +176,7 @@ public class ContactHelper {
 		String msg = sb.toString();
 		Log.e("contactsid", msg);
 	}
+	
+	
 
 }
