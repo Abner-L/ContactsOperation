@@ -72,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			// 定义一个随机数，保证随机填充字段内容的合理
 			int nameId = random.nextInt(10);
 			if (random.nextInt(2) == 1) {
-				nameEditText.setText(fieldResources.name[nameId]);
+				nameEditText.setText(fieldResources.name[0]);
 			}
 			if (random.nextInt(2) == 1) {
 				nicknameEditText.setText(fieldResources.nickname[nameId]);
@@ -132,6 +132,12 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		case R.id.btn_delete:
 			// 删除联系人
 			contactHelper.deleteContactId();
+			
+			//实验－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+			
+
+			
+			//----------------------------------------------------
 			break;
 		case R.id.btn_set_photo:
 			// 设置头像

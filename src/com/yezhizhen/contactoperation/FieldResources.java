@@ -2,16 +2,18 @@ package com.yezhizhen.contactoperation;
 
 import java.util.Random;
 
+import android.R.string;
+
 public class FieldResources {
+	
+
 	// 定义
-	String[] name = new String[] { "Liu dehua", "Stallone", "Zhang guorong",
-			"Wang lihong", "Dong chao", "Sui li", "Lenka", "Li lianjie",
-			"Jason Statham", "Air Jordan" };
+	String[] name = new String[] {nameMaker()};
 	String[] nickname = new String[] { "nick Liu", "nick Stallone",
 			"nick Zhang", "nick Wang", "nick Dong", "nick Sui", "nick Lenka",
 			"nick Li", "nick Jason", "nick Air" };
 	// 手机号的随机生成
-	String[] phone = new String[] {phoneNumberMaker()};
+	String[] phone = new String[] { phoneNumberMaker() };
 	String[] email = new String[] { "Liu dehua@nimei.com",
 			"Stallone@nimei.com", "Zhang guorong@nimei.com",
 			"Wang lihong@nimei.com", "Dong chao@nimei.com", "Sui li@nimei.com",
@@ -34,20 +36,33 @@ public class FieldResources {
 	public FieldResources() {
 
 	}
-	//定义一个随机生成手机号的方法
-	public String phoneNumberMaker (){
-		
+
+	// 定义一个随机生成手机号的方法
+	public String phoneNumberMaker() {
+
 		String[] numberHead = new String[] { "134", "135", "136", "137", "138",
 				"139", "147", "150", "151", "152", "157", "158", "159", "181",
 				"182", "183", "187", "188", "130", "131", "132", "155", "156",
 				"185", "186", "133", "153", "180", "189" };
 		StringBuilder sb = new StringBuilder();
-		Random rd = new Random();
-		sb.append(numberHead[rd.nextInt(30)]);
+		Random	random = new Random();
+		sb.append(numberHead[random.nextInt(30)]);
 		for (int i = 0; i < 8; i++) {
-			sb.append(rd.nextInt(10));
+			sb.append(random.nextInt(10));
 		}
-		
+
 		return sb.toString();
+	}
+
+	// 定义姓名随机组合的方法
+	public String nameMaker() {
+		Random random = new Random();
+		StringBuilder sbName = new StringBuilder();
+		for (int i = 0; i < random.nextInt(2)+2; i++) {
+			char c = (char) (0x4e00 + random.nextInt(20901));
+			sbName.append(String.valueOf(c));
+		}
+
+		return sbName.toString();
 	}
 }
