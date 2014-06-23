@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 				nicknameEditText.setText(fieldResources.nickname[nameId]);
 			}
 			if (random.nextInt(2) == 1) {
-				phoneEditText.setText(fieldResources.phone[nameId]);
+				phoneEditText.setText(fieldResources.phone[0]);
 			}
 			if (random.nextInt(2) == 1) {
 				emailEditText.setText(fieldResources.email[nameId]);
