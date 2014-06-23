@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		saveButton.setOnClickListener(this);
 		deleteButton.setOnClickListener(this);
 		setPhotoButton.setOnClickListener(this);
-		
+
 		contactHelper = ContactHelper.getContactHelper(this);
 		avatarBM = BitmapFactory.decodeResource(getResources(),
 				R.drawable.photo);
@@ -66,19 +66,38 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
 		switch (view.getId()) {
 		case R.id.btn_save:
-			//随机向editText中添加数据
-			 FieldResources fieldResources =	new FieldResources();
-			 Random random = new Random();
-			
-			 nameEditText.setText(fieldResources.name[random.nextInt(10)]);
-			 nicknameEditText.setText(fieldResources.nickname[random.nextInt(10)]);
-			 phoneEditText.setText(fieldResources.phone[random.nextInt(10)]);
-			 emailEditText.setText(fieldResources.email[random.nextInt(10)]);
-			 websiteEditText.setText(fieldResources.website[random.nextInt(10)]);
-			 adressEditText.setText(fieldResources.address[random.nextInt(10)]);
-			 orginfoEditText.setText(fieldResources.org[random.nextInt(10)]);
-			 eventEditText.setText(fieldResources.event[random.nextInt(10)]);
-			 timelyinfoEditText.setText(fieldResources.im[random.nextInt(10)]);
+			// 随机向editText中添加数据，并随机选择字段添加
+			FieldResources fieldResources = new FieldResources();
+			Random random = new Random();
+			// 定义一个随机数，保证随机填充字段内容的合理
+			int nameId = random.nextInt(10);
+			if (random.nextInt(2) == 1) {
+				nameEditText.setText(fieldResources.name[nameId]);
+			}
+			if (random.nextInt(2) == 1) {
+				nicknameEditText.setText(fieldResources.nickname[nameId]);
+			}
+			if (random.nextInt(2) == 1) {
+				phoneEditText.setText(fieldResources.phone[nameId]);
+			}
+			if (random.nextInt(2) == 1) {
+				emailEditText.setText(fieldResources.email[nameId]);
+			}
+			if (random.nextInt(2) == 1) {
+				websiteEditText.setText(fieldResources.website[nameId]);
+			}
+			if (random.nextInt(2) == 1) {
+				adressEditText.setText(fieldResources.address[nameId]);
+			}
+			if (random.nextInt(2) == 1) {
+				orginfoEditText.setText(fieldResources.org[nameId]);
+			}
+			if (random.nextInt(2) == 1) {
+				eventEditText.setText(fieldResources.event[nameId]);
+			}
+			if (random.nextInt(2) == 1) {
+				timelyinfoEditText.setText(fieldResources.im[nameId]);
+			}
 			// 保存联系人
 			String name = nameEditText.getText().toString().trim();
 			String nickname = nicknameEditText.getText().toString().trim();
@@ -89,12 +108,12 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			String orginfo = orginfoEditText.getText().toString().trim();
 			String event = eventEditText.getText().toString().trim();
 			String timelyinfo = timelyinfoEditText.getText().toString().trim();
-			String[] info = new String[] { name, nickname, phone, email,website, adress, orginfo, event, timelyinfo };
-					
-			
+			String[] info = new String[] { name, nickname, phone, email,
+					website, adress, orginfo, event, timelyinfo };
+
 			contactHelper.saveContactInfo(info);
 			contactHelper.updateAvatar(avatarBM);
-			
+
 			nameEditText.setText("");
 			nicknameEditText.setText("");
 			phoneEditText.setText("");
@@ -104,7 +123,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			orginfoEditText.setText("");
 			eventEditText.setText("");
 			timelyinfoEditText.setText("");
-			
+
 			avatarBM = BitmapFactory.decodeResource(getResources(),
 					R.drawable.photo);
 			photoImageView.setImageBitmap(avatarBM);
@@ -121,7 +140,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			avatarBM = BitmapFactory.decodeResource(getResources(),
 					R.drawable.photo1 + i);
 			photoImageView.setImageBitmap(avatarBM);
-			
 
 			break;
 		default:

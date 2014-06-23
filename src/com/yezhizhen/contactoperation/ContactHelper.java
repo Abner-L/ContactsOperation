@@ -69,13 +69,6 @@ public class ContactHelper {
 				android.provider.ContactsContract.Data.CONTENT_URI, values);
 		values.clear();
 		// 4.保存联系人的电话 ok
-//		values.put(Data.RAW_CONTACT_ID, rawContactID);
-//		values.put(Data.MIMETYPE,
-//				ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-//		values.put(Data.DATA1, info[2]);
-//		contentResolver.insert(
-//				android.provider.ContactsContract.Data.CONTENT_URI, values);
-//		values.clear();
 		values.put(Data.RAW_CONTACT_ID, rawContactID);
 		values.put(Data.MIMETYPE,
 				ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
