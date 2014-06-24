@@ -6,6 +6,13 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class IdSaveDbHelper extends SQLiteOpenHelper {
+	/**
+	 * 这个一个数据库的帮助类  提供创建一个数据库 用于存储新建的联系人的ID 可以根据存储的ID删除新建的联系人 
+	 * @param context
+	 * @param name
+	 * @param factory
+	 * @param version
+	 */
 	
 	private IdSaveDbHelper(Context context, String name, CursorFactory factory,
 			int version) {

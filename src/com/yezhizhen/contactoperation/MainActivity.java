@@ -71,11 +71,11 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			Random random = new Random();
 			// 定义一个随机数，保证随机填充字段内容的合理
 			int nameId = random.nextInt(10);
-			if (random.nextInt(2) == 1) {
+//			if (random.nextInt(2) == 1) {
 				nameEditText.setText(fieldResources.name[0]);
-			}
+//			}
 			if (random.nextInt(2) == 1) {
-				nicknameEditText.setText(fieldResources.nickname[nameId]);
+				nicknameEditText.setText(fieldResources.nickname[0]);
 			}
 			if (random.nextInt(2) == 1) {
 				phoneEditText.setText(fieldResources.phone[0]);
@@ -87,16 +87,16 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 				websiteEditText.setText(fieldResources.website[nameId]);
 			}
 			if (random.nextInt(2) == 1) {
-				adressEditText.setText(fieldResources.address[nameId]);
+				adressEditText.setText(fieldResources.address[0]);
 			}
 			if (random.nextInt(2) == 1) {
-				orginfoEditText.setText(fieldResources.org[nameId]);
+				orginfoEditText.setText(fieldResources.orgInfo[0]);
 			}
 			if (random.nextInt(2) == 1) {
 				eventEditText.setText(fieldResources.event[nameId]);
 			}
 			if (random.nextInt(2) == 1) {
-				timelyinfoEditText.setText(fieldResources.im[nameId]);
+				timelyinfoEditText.setText(fieldResources.timelyInfo[nameId]);
 			}
 			// 保存联系人
 			String name = nameEditText.getText().toString().trim();
@@ -133,11 +133,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			// 删除联系人
 			contactHelper.deleteContactId();
 			
-			//实验－－－－－－－－－－－－－－－－－－－－－－－－－－－－
-			
-
-			
-			//----------------------------------------------------
 			break;
 		case R.id.btn_set_photo:
 			// 设置头像

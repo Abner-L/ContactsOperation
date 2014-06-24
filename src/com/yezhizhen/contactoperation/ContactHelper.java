@@ -24,6 +24,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class ContactHelper {
+	/**
+	 * 本类中实现的是 保存联系人 删除联系人的方法
+	 */
 	long rawContactID;
 	ContentValues values;
 	Context context;
