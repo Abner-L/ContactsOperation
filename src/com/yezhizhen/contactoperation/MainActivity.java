@@ -81,10 +81,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 				phoneEditText.setText(fieldResources.phone[0]);
 			}
 			if (random.nextInt(2) == 1) {
-				emailEditText.setText(fieldResources.email[nameId]);
+				emailEditText.setText(fieldResources.email[0]);
 			}
 			if (random.nextInt(2) == 1) {
-				websiteEditText.setText(fieldResources.website[nameId]);
+				websiteEditText.setText(fieldResources.website[0]);
 			}
 			if (random.nextInt(2) == 1) {
 				adressEditText.setText(fieldResources.address[0]);
@@ -93,10 +93,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 				orginfoEditText.setText(fieldResources.orgInfo[0]);
 			}
 			if (random.nextInt(2) == 1) {
-				eventEditText.setText(fieldResources.event[nameId]);
+				eventEditText.setText(fieldResources.event[0]);
 			}
 			if (random.nextInt(2) == 1) {
-				timelyinfoEditText.setText(fieldResources.timelyInfo[nameId]);
+				timelyinfoEditText.setText(fieldResources.timelyInfo[0]);
 			}
 			// 保存联系人
 			String name = nameEditText.getText().toString().trim();

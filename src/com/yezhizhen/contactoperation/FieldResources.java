@@ -15,21 +15,12 @@ public class FieldResources {
 	String[] nickname = new String[] { nameMaker() };
 	// 手机号的随机生成
 	String[] phone = new String[] { phoneNumberMaker() };
-	String[] email = new String[] { "Liu dehua@nimei.com",
-			"Stallone@nimei.com", "Zhang guorong@nimei.com",
-			"Wang lihong@nimei.com", "Dong chao@nimei.com", "Sui li@nimei.com",
-			"Lenka@nimei.com", "Li lianjie@nimei.com",
-			"Jason Statham@nimei.com", "Air Jordan@nimei.com" };
-	String[] website = new String[] { "www.Liu dehua.com", "www.Stallone.com",
-			"www.Zhang guorong.com", "www.Wang lihong.com",
-			"www.Dong chao.com", "www.Sui li.com", "www.Lenka.com",
-			"www.Li lianjie.com", "www.Jason Statham.com", "www.Air Jordan.com" };
+	String[] email = new String[] { emailMaker() };
+	String[] website = new String[] { websiteMaker() };
 	String[] address = new String[] { addressMaker() };
 	String[] orgInfo = new String[] { orgInfoMaker() };
-	String[] event = new String[] { "唱歌", "吃饭", "喝水", "写代码", "聊天", "打架", "单挑",
-			"回家", "跑步", "想不出来啦" };
-	String[] timelyInfo = new String[] { "吃饭啦", "发工资啦", "睡觉啦", "擦！上班了",
-			"尼玛！报错", "下班啦！", "加班！！", "王哥请吃饭", "涨工资啦", "我是一个好孩子" };
+	String[] event = new String[] { timelyInfoMaker() };
+	String[] timelyInfo = new String[] { timelyInfoMaker() };
 
 	public FieldResources() {
 
@@ -92,6 +83,49 @@ public class FieldResources {
 		}
 		sbOrgInfo.append("有限责任公司");
 		return sbOrgInfo.toString();
+	}
+
+	// 定义一个生成email的方法
+	public String emailMaker() {
+
+		Random random = new Random();
+		StringBuilder sbEmail = new StringBuilder();
+		for (int i = 0; i < random.nextInt(3) + 5; i++) {
+
+			sbEmail.append((char) (random.nextInt(26) + 97));
+		}
+		sbEmail.append("@");
+		for (int i = 0; i < random.nextInt(3) + 3; i++) {
+
+			sbEmail.append((char) (random.nextInt(26) + 97));
+		}
+		sbEmail.append(".com");
+		return sbEmail.toString();
+	}
+
+	// 定义一个生成website的方法
+	public String websiteMaker() {
+
+		Random random = new Random();
+		StringBuilder sbWebsite = new StringBuilder();
+		sbWebsite.append("http://www.");
+		for (int i = 0; i < random.nextInt(5) + 3; i++) {
+
+			sbWebsite.append((char) (random.nextInt(26) + 97));
+		}
+		sbWebsite.append(".com");
+		return sbWebsite.toString();
+	}
+
+	// 定义一个生成即时信息的方法
+	public String timelyInfoMaker() {
+		Random random = new Random();
+		StringBuilder sbTimelyInfo = new StringBuilder();
+		for (int i = 0; i < random.nextInt(4) + 5; i++) {
+
+			sbTimelyInfo.append(randomWordMaker());
+		}
+		return sbTimelyInfo.toString();
 	}
 
 	// 定义生成随机汉字的方法
