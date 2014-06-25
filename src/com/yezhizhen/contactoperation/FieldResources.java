@@ -9,7 +9,7 @@ public class FieldResources {
 	/**
 	 * 本类中 提供了联系人各个字段的资源 实现了 联系人姓名 手机号 的随机生成
 	 */
-
+	private Random random = new Random();
 	// 定义
 	String[] name = new String[] { nameMaker() };
 	String[] nickname = new String[] { nameMaker() };
@@ -34,7 +34,6 @@ public class FieldResources {
 				"182", "183", "187", "188", "130", "131", "132", "155", "156",
 				"185", "186", "133", "153", "180", "189" };
 		StringBuilder sb = new StringBuilder();
-		Random random = new Random();
 		sb.append(numberHead[random.nextInt(30)]);
 		for (int i = 0; i < 8; i++) {
 			sb.append(random.nextInt(10));
@@ -45,7 +44,6 @@ public class FieldResources {
 
 	// 定义姓名随机组合的方法
 	public String nameMaker() {
-		Random random = new Random();
 		StringBuilder sbName = new StringBuilder();
 		for (int i = 0; i < random.nextInt(2) + 2; i++) {
 
@@ -56,7 +54,6 @@ public class FieldResources {
 
 	// 定义地址随机组合的方法
 	public String addressMaker() {
-		Random random = new Random();
 		StringBuilder sbAddress = new StringBuilder();
 
 		for (int j = 0; j < random.nextInt(2) + 2; j++) {
@@ -75,7 +72,6 @@ public class FieldResources {
 	// 定义生成随机组织信息的方法
 	public String orgInfoMaker() {
 
-		Random random = new Random();
 		StringBuilder sbOrgInfo = new StringBuilder();
 		for (int i = 0; i < random.nextInt(3) + 4; i++) {
 
@@ -88,7 +84,6 @@ public class FieldResources {
 	// 定义一个生成email的方法
 	public String emailMaker() {
 
-		Random random = new Random();
 		StringBuilder sbEmail = new StringBuilder();
 		for (int i = 0; i < random.nextInt(3) + 5; i++) {
 
@@ -106,7 +101,6 @@ public class FieldResources {
 	// 定义一个生成website的方法
 	public String websiteMaker() {
 
-		Random random = new Random();
 		StringBuilder sbWebsite = new StringBuilder();
 		sbWebsite.append("http://www.");
 		for (int i = 0; i < random.nextInt(5) + 3; i++) {
@@ -119,7 +113,6 @@ public class FieldResources {
 
 	// 定义一个生成即时信息的方法
 	public String timelyInfoMaker() {
-		Random random = new Random();
 		StringBuilder sbTimelyInfo = new StringBuilder();
 		for (int i = 0; i < random.nextInt(4) + 5; i++) {
 
@@ -133,7 +126,6 @@ public class FieldResources {
 		// 使用gb2312编码集
 		String[] indexBase = { "0", "1", "2", "3", "4", "5", "6", "7", "8",
 				"9", "a", "b", "c", "d", "e", "f" };
-		Random random = new Random();
 		// 定义第一个位段的值，为了不出现一些不常用的字，根据gb2312的编码表将一些不常用字所对应的编码剔除
 		int r1 = random.nextInt(3) + 11;// 生成11-13随机数，将编码表E开头的汉字剔除
 		int r2;

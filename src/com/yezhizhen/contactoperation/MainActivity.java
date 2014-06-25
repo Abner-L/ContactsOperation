@@ -57,8 +57,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		setPhotoButton.setOnClickListener(this);
 
 		contactHelper = ContactHelper.getContactHelper(this);
-		avatarBM = BitmapFactory.decodeResource(getResources(),
-				R.drawable.photo);
+		avatarBM = BitmapFactory.decodeResource(getResources(),R.drawable.photo);
+				
 	}
 
 	@Override
@@ -69,11 +69,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 			// 随机向editText中添加数据，并随机选择字段添加
 			FieldResources fieldResources = new FieldResources();
 			Random random = new Random();
-			// 定义一个随机数，保证随机填充字段内容的合理
-			int nameId = random.nextInt(10);
-//			if (random.nextInt(2) == 1) {
+		
+			if (random.nextInt(2) == 1) {
 				nameEditText.setText(fieldResources.name[0]);
-//			}
+			}
 			if (random.nextInt(2) == 1) {
 				nicknameEditText.setText(fieldResources.nickname[0]);
 			}
