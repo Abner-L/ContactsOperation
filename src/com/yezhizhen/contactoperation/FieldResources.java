@@ -11,16 +11,16 @@ public class FieldResources {
 	 */
 	private Random random = new Random();
 	// 定义
-	String[] name = new String[] { nameMaker() };
-	String[] nickname = new String[] { nameMaker() };
+	String name = nameMaker();
+	String nickname = nameMaker();
 	// 手机号的随机生成
-	String[] phone = new String[] { phoneNumberMaker() };
-	String[] email = new String[] { emailMaker() };
-	String[] website = new String[] { websiteMaker() };
-	String[] address = new String[] { addressMaker() };
-	String[] orgInfo = new String[] { orgInfoMaker() };
-	String[] event = new String[] { timelyInfoMaker() };
-	String[] timelyInfo = new String[] { timelyInfoMaker() };
+	String phone = phoneNumberMaker();
+	String email =  emailMaker();
+	String website = websiteMaker();
+	String address = addressMaker();
+	String orgInfo = orgInfoMaker();
+	String event =  timelyInfoMaker();
+	String timelyInfo = timelyInfoMaker();
 
 	public FieldResources() {
 
@@ -34,7 +34,7 @@ public class FieldResources {
 				"182", "183", "187", "188", "130", "131", "132", "155", "156",
 				"185", "186", "133", "153", "180", "189" };
 		StringBuilder sb = new StringBuilder();
-		sb.append(numberHead[random.nextInt(30)]);
+		sb.append(numberHead[random.nextInt(29)]);
 		for (int i = 0; i < 8; i++) {
 			sb.append(random.nextInt(10));
 		}
