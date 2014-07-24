@@ -2,7 +2,6 @@ package com.yezhizhen.contactoperation;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Editable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,7 +23,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 	// 操作联系人的方法
 	public void operateContact() {
 		
-
 		Button createButton = (Button) findViewById(R.id.bt_create);
 		Button deleteButton = (Button) findViewById(R.id.bt_delete);
 		contactNumberEditTexit = (EditText) findViewById(R.id.et_create);
